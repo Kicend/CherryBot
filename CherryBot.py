@@ -53,7 +53,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-13"
+wersja = "0.12-14"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -109,6 +109,7 @@ class Utilities(commands.Cog):
                                                    "Możesz to zrobić na serwerze lub na DM ze mną")
                 elif ctx.content in commands_db:
                     await bot.process_commands(ctx)
+
         @bot.event
         async def on_message(ctx):
             if ctx.content.startswith("1"):
