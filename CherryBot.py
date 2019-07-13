@@ -136,6 +136,7 @@ class Utilities(commands.Cog):
                     print("To ja")
                 else:
                     await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
+                    await bot.process_commands(ctx)
 
     @commands.command()
     @has_permissions(administrator=True)
