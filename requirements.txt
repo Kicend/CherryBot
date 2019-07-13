@@ -1,0 +1,7 @@
+cffi
+websockets
+discord.py
+psutil
+PyNaCl
+python-dotenv
+cffi
