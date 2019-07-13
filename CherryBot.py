@@ -90,7 +90,6 @@ class Utilities(commands.Cog):
                     if ctx.author.bot:
                         return
                     else:
-                        ctx.author = ctx.channel
                         message_value = ctx.content
                         if message_value in commands_db:
                             print("To była komenda")
