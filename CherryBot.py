@@ -52,7 +52,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-5"
+wersja = "0.12-6"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -110,26 +110,29 @@ class Utilities(commands.Cog):
                     await bot.process_commands(message)
         @bot.event
         async def on_message(message):
-            message_value = message.content
-            if message_value in commands_db:
-                await bot.process_commands(message_value)
+            if message.author.bot:
+                print("To ja")
             else:
-                if message.content.startswith("1"):
-                    await channel.send(CONTENT)
-                    typ = CATEGORY_1
-                    await answer(typ)
-                elif message.content.startswith("2"):
-                    await channel.send(CONTENT)
-                    typ = CATEGORY_2
-                    await answer(typ)
-                elif message.content.startswith("3"):
-                    await channel.send(CONTENT)
-                    typ = CATEGORY_3
-                    await answer(typ)
-                elif message.content.startswith("4"):
-                    await channel.send(CONTENT)
-                    typ = CATEGORY_4
-                    await answer(typ)
+                message_value = message.content
+                if message_value in commands_db:
+                    await bot.process_commands(message_value)
+                else:
+                    if message.content.startswith("1"):
+                        await channel.send(CONTENT)
+                        typ = CATEGORY_1
+                        await answer(typ)
+                    elif message.content.startswith("2"):
+                        await channel.send(CONTENT)
+                        typ = CATEGORY_2
+                        await answer(typ)
+                    elif message.content.startswith("3"):
+                        await channel.send(CONTENT)
+                        typ = CATEGORY_3
+                        await answer(typ)
+                    elif message.content.startswith("4"):
+                        await channel.send(CONTENT)
+                        typ = CATEGORY_4
+                        await answer(typ)
 
     @commands.command()
     @has_permissions(administrator=True)
