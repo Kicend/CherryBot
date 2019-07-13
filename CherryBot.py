@@ -28,6 +28,7 @@ channels = []
 config_db = []
 commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!recources", "!config",
                "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
+i = []
 
 # Wczytywanie konfiguracji
 config = open("cherrydata/config/config.txt")
@@ -135,10 +136,9 @@ class Utilities(commands.Cog):
                 if ctx.author.bot:
                     return
                 else:
-                    i = 0
-                    if i == 0:
+                    if i != []:
                         await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
-                        i += 1
+                        i.append(0)
                     await bot.process_commands(ctx)
 
     @commands.command()
