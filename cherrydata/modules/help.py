@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.12-6
+# Zgodne z CherryBot 0.12-7
 import discord
 
 async def pomocy(self, ctx, los, wersja):

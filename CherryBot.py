@@ -28,6 +28,7 @@ channels = []
 config_db = []
 commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!recources", "!config",
                "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
+report_queue = []
 
 # Wczytywanie konfiguracji
 config = open("cherrydata/config/config.txt")
@@ -52,7 +53,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-6"
+wersja = "0.12-7"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -73,61 +74,68 @@ class Utilities(commands.Cog):
     async def report(self, message):
         "Komenda do zgłaszania przeznaczona dla użytkowników"
         channel = message.author
-        await channel.send("Jaki typ zgłoszenia chcesz wysłać?\n"
-                            "1 - Błąd gry\n"
-                            "2 - Propozycja zmiany\n"
-                            "3 - Problem z botem\n"
-                            "4 - Inne\n")
+        if report_queue == []:
+            report_queue.append(channel)
 
-        await channel.send("Wpisz numer kategorii")
+            await channel.send("Jaki typ zgłoszenia chcesz wysłać?\n"
+                                "1 - Błąd gry\n"
+                                "2 - Propozycja zmiany\n"
+                                "3 - Problem z botem\n"
+                                "4 - Inne\n")
 
-        async def answer(typ):
+            await channel.send("Wpisz numer kategorii")
+
+            async def answer(typ):
+                @bot.event
+                async def on_message(message):
+                    if message.content.startswith("&"):
+                        if message.author.bot:
+                            print("To ja")
+                        else:
+                            message.author = channel
+                            message_value = message.content
+                            if message_value in commands_db:
+                                print("To była komenda")
+                                await bot.process_commands(message_value)
+                            else:
+                                bug_channel = bot.get_channel(int(config_db[1]))
+                                embed = discord.Embed(
+                                    colour=discord.Colour.dark_red()
+                                )
+                                and_position = message_value.index("&")
+                                message_value_clear = message_value[and_position+1:]
+                                embed.set_author(name="Zgłoszenie typu {}".format(typ))
+                                embed.add_field(name="Treść:", value=message_value_clear, inline=False)
+                                embed.add_field(name="Zgłosił:", value="{}\nid: {}".format(message.author, message.author.id), inline=False)
+                                await bug_channel.send(embed=embed)
+                                await channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
+                                                   "Możesz to zrobić na serwerze lub na DM ze mną")
+                    elif message.content in commands_db:
+                        await bot.process_commands(message)
             @bot.event
             async def on_message(message):
-                if message.content.startswith("&"):
-                    if message.author.bot:
-                        print("To ja")
-                    else:
-                        message.author = channel
-                        message_value = message.content
-                        if message_value in commands_db:
-                            print("To była komenda")
-                            await bot.process_commands(message_value)
-                        else:
-                            bug_channel = bot.get_channel(int(config_db[1]))
-                            embed = discord.Embed(
-                                colour=discord.Colour.dark_red()
-                            )
-                            and_position = message_value.index("&")
-                            message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(typ))
-                            embed.add_field(name="Treść:", value=message_value_clear, inline=False)
-                            embed.add_field(name="Zgłosił:", value="{}\nid: {}".format(message.author, message.author.id), inline=False)
-                            await bug_channel.send(embed=embed)
-                            await channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
-                                               "Możesz to zrobić na serwerze lub na DM ze mną")
+                if message.content.startswith("1"):
+                    await channel.send(CONTENT)
+                    typ = CATEGORY_1
+                    await answer(typ)
+                elif message.content.startswith("2"):
+                    await channel.send(CONTENT)
+                    typ = CATEGORY_2
+                    await answer(typ)
+                elif message.content.startswith("3"):
+                    await channel.send(CONTENT)
+                    typ = CATEGORY_3
+                    await answer(typ)
+                elif message.content.startswith("4"):
+                    await channel.send(CONTENT)
+                    typ = CATEGORY_4
+                    await answer(typ)
                 elif message.content in commands_db:
                     await bot.process_commands(message)
-        @bot.event
-        async def on_message(message):
-            if message.content.startswith("1"):
-                await channel.send(CONTENT)
-                typ = CATEGORY_1
-                await answer(typ)
-            elif message.content.startswith("2"):
-                await channel.send(CONTENT)
-                typ = CATEGORY_2
-                await answer(typ)
-            elif message.content.startswith("3"):
-                await channel.send(CONTENT)
-                typ = CATEGORY_3
-                await answer(typ)
-            elif message.content.startswith("4"):
-                await channel.send(CONTENT)
-                typ = CATEGORY_4
-                await answer(typ)
-            elif message.content in commands_db:
-                await bot.process_commands(message)
+        else:
+            report_queue.append(channel)
+            channel_send = message.channel
+            await channel_send.send("Jesteś {} w kolejce do zgłoszenia".format(report_queue.index(channel)))
 
     @commands.command()
     @has_permissions(administrator=True)
