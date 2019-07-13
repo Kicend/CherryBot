@@ -15,6 +15,7 @@ from cherrydata.modules.help import pomocy
 from cherrydata.modules.rsp import rsp
 from cherrydata.modules.info import info
 from cherrydata.modules.coin import coin
+from cherrydata.modules.guild_info import guild_info
 
 """
 Zostanie to przerzucone do API
@@ -52,7 +53,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.11-4"
+wersja = "0.12-1"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -65,7 +66,7 @@ class Utilities(commands.Cog):
 
     @commands.command()
     @has_permissions(manage_messages=True)
-    async def info(self, ctx, user_ext_info : discord.Member):
+    async def info(self, ctx, user_ext_info: discord.Member):
         "Komenda do uzyskiwania informacji o użytkowniku oznaczając go (@nick, nick lub id)"
         await info(self, ctx, user_ext_info)
 
@@ -178,6 +179,11 @@ class Utilities(commands.Cog):
         "Komenda do sprawdzenia zużycia zasobów przez bota"
         process = psutil.Process(os.getpid())
         await ctx.send("RAM: {} MB".format(round(process.memory_info().rss / (1024*1024))))
+
+    @commands.command()
+    async def guild_info(self, ctx, guild: discord.Guild):
+        """Komenda do uzyskania informacji o serwerze"""
+        await guild_info(self, ctx, guild)
 
 class Entertainment(commands.Cog):
     def __init__(self, bot):

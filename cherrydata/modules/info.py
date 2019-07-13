@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.11-3
+# Zgodne z CherryBot 0.12-1
 import discord
 
 async def info(self, ctx, user_ext_info: discord.Member):
