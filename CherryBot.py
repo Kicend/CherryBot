@@ -28,7 +28,7 @@ channels = []
 config_db = []
 commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!recources", "!config",
                "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
-i = []
+types_report_db = {}
 
 # Wczytywanie konfiguracji
 config = open("cherrydata/config/config.txt")
@@ -53,7 +53,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-11"
+wersja = "0.12-12"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -83,7 +83,7 @@ class Utilities(commands.Cog):
 
         await ctx.channel.send("Wpisz numer kategorii")
 
-        async def answer(typ):
+        async def answer():
             @bot.event
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
@@ -101,7 +101,7 @@ class Utilities(commands.Cog):
                             )
                             and_position = message_value.index("&")
                             message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(typ))
+                            embed.set_author(name="Zgłoszenie typu {}".format(types_report_db.pop(ctx.author)))
                             embed.add_field(name="Treść:", value=message_value_clear, inline=False)
                             embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
                             await bug_channel.send(embed=embed)
@@ -113,20 +113,21 @@ class Utilities(commands.Cog):
         async def on_message(ctx):
             if ctx.content.startswith("1"):
                 await ctx.channel.send(CONTENT)
+                types_report_db[ctx.author]=CATEGORY_1
                 typ = CATEGORY_1
-                await answer(typ)
+                await answer()
             elif ctx.content.startswith("2"):
                 await ctx.channel.send(CONTENT)
                 typ = CATEGORY_2
-                await answer(typ)
+                await answer()
             elif ctx.content.startswith("3"):
                 await ctx.channel.send(CONTENT)
                 typ = CATEGORY_3
-                await answer(typ)
+                await answer()
             elif ctx.content.startswith("4"):
                 await ctx.channel.send(CONTENT)
                 typ = CATEGORY_4
-                await answer(typ)
+                await answer()
             elif ctx.content in commands_db:
                 await bot.process_commands(ctx)
 
