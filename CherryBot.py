@@ -53,7 +53,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-10"
+wersja = "0.12-11"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -83,7 +83,7 @@ class Utilities(commands.Cog):
 
         await ctx.channel.send("Wpisz numer kategorii")
 
-        async def answer(typ):
+        async def answer(ctx, *args):
             @bot.event
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
@@ -102,7 +102,7 @@ class Utilities(commands.Cog):
                             )
                             and_position = message_value.index("&")
                             message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(typ))
+                            embed.set_author(name="Zgłoszenie typu {}".format(args))
                             embed.add_field(name="Treść:", value=message_value_clear, inline=False)
                             embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
                             await bug_channel.send(embed=embed)
@@ -136,10 +136,7 @@ class Utilities(commands.Cog):
                 if ctx.author.bot:
                     return
                 else:
-                    if i != []:
-                        await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
-                        i.append(0)
-                    await bot.process_commands(ctx)
+                    await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
 
     @commands.command()
     @has_permissions(administrator=True)

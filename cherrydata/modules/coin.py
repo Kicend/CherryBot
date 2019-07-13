@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.12-10
+# Zgodne z CherryBot 0.12-11
 import random
 
 async def coin(self, ctx):
