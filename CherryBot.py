@@ -27,7 +27,7 @@ addons = [f for f in listdir(addons_path) if isfile(join(addons_path, f))]
 channels = []
 config_db = []
 commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!recources", "!config",
-               "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear")
+               "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
 
 # Wczytywanie konfiguracji
 config = open("cherrydata/config/config.txt")
@@ -52,7 +52,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-2"
+wersja = "0.12-3"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
