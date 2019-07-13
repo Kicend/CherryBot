@@ -53,7 +53,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-12"
+wersja = "0.12-13"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -114,19 +114,18 @@ class Utilities(commands.Cog):
             if ctx.content.startswith("1"):
                 await ctx.channel.send(CONTENT)
                 types_report_db[ctx.author]=CATEGORY_1
-                typ = CATEGORY_1
                 await answer()
             elif ctx.content.startswith("2"):
                 await ctx.channel.send(CONTENT)
-                typ = CATEGORY_2
+                types_report_db[ctx.author]=CATEGORY_2
                 await answer()
             elif ctx.content.startswith("3"):
                 await ctx.channel.send(CONTENT)
-                typ = CATEGORY_3
+                types_report_db[ctx.author]=CATEGORY_3
                 await answer()
             elif ctx.content.startswith("4"):
                 await ctx.channel.send(CONTENT)
-                typ = CATEGORY_4
+                types_report_db[ctx.author]=CATEGORY_4
                 await answer()
             elif ctx.content in commands_db:
                 await bot.process_commands(ctx)
