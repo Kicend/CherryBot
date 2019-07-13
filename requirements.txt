@@ -1,0 +1,4 @@
+cffi
+websockets
+discord.py
+psutil
