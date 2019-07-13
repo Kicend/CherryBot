@@ -52,7 +52,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-9"
+wersja = "0.12-10"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -87,7 +87,7 @@ class Utilities(commands.Cog):
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
                     if ctx.author.bot:
-                        print("To ja")
+                        return
                     else:
                         ctx.author = ctx.channel
                         message_value = ctx.content
@@ -133,7 +133,7 @@ class Utilities(commands.Cog):
                     await bot.process_commands(ctx)
             else:
                 if ctx.author.bot:
-                    print("To ja")
+                    return
                 else:
                     await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
                     await bot.process_commands(ctx)
