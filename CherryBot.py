@@ -110,29 +110,24 @@ class Utilities(commands.Cog):
                     await bot.process_commands(message)
         @bot.event
         async def on_message(message):
-            if message.author.bot:
-                print("To ja")
-            else:
-                message_value = message.content
-                if message_value in commands_db:
-                    await bot.process_commands(message_value)
-                else:
-                    if message.content.startswith("1"):
-                        await channel.send(CONTENT)
-                        typ = CATEGORY_1
-                        await answer(typ)
-                    elif message.content.startswith("2"):
-                        await channel.send(CONTENT)
-                        typ = CATEGORY_2
-                        await answer(typ)
-                    elif message.content.startswith("3"):
-                        await channel.send(CONTENT)
-                        typ = CATEGORY_3
-                        await answer(typ)
-                    elif message.content.startswith("4"):
-                        await channel.send(CONTENT)
-                        typ = CATEGORY_4
-                        await answer(typ)
+            if message.content.startswith("1"):
+                await channel.send(CONTENT)
+                typ = CATEGORY_1
+                await answer(typ)
+            elif message.content.startswith("2"):
+                await channel.send(CONTENT)
+                typ = CATEGORY_2
+                await answer(typ)
+            elif message.content.startswith("3"):
+                await channel.send(CONTENT)
+                typ = CATEGORY_3
+                await answer(typ)
+            elif message.content.startswith("4"):
+                await channel.send(CONTENT)
+                typ = CATEGORY_4
+                await answer(typ)
+            elif message.content in commands_db:
+                await bot.process_commands(message)
 
     @commands.command()
     @has_permissions(administrator=True)
