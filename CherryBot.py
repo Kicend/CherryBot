@@ -83,7 +83,7 @@ class Utilities(commands.Cog):
 
         await ctx.channel.send("Wpisz numer kategorii")
 
-        async def answer(ctx, *args):
+        async def answer(typ):
             @bot.event
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
@@ -101,7 +101,7 @@ class Utilities(commands.Cog):
                             )
                             and_position = message_value.index("&")
                             message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(args))
+                            embed.set_author(name="Zgłoszenie typu {}".format(typ))
                             embed.add_field(name="Treść:", value=message_value_clear, inline=False)
                             embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
                             await bug_channel.send(embed=embed)
