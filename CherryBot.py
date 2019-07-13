@@ -133,9 +133,12 @@ class Utilities(commands.Cog):
                 elif message.content in commands_db:
                     await bot.process_commands(message)
         else:
-            report_queue.append(channel)
             channel_send = message.channel
-            await channel_send.send("Jesteś {} w kolejce do zgłoszenia".format(report_queue.index(channel)))
+            if channel in report_queue:
+                await channel_send.send("Już jesteś w kolejce")
+            else:
+                report_queue.append(channel)
+                await channel_send.send("Jesteś {} w kolejce do zgłoszenia".format(report_queue.index(channel)))
 
     @commands.command()
     @has_permissions(administrator=True)
