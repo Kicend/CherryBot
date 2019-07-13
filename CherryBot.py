@@ -111,7 +111,7 @@ class Utilities(commands.Cog):
         @bot.event
         async def on_message(message):
             message_value = message.content
-            if message_value == commands_db:
+            if message_value in commands_db:
                 await bot.process_commands(message_value)
             else:
                 if message.content.startswith("1"):
