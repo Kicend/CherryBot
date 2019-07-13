@@ -1,7 +1,8 @@
 # Zgodne z CherryBot 0.12-1
 import discord
 
-async def guild_info(self, ctx, guild: discord.Guild):
+async def guild_info(self, ctx):
+    guild = discord.Guild
     embed = discord.Embed(
         colour=discord.Colour.dark_red()
     )
