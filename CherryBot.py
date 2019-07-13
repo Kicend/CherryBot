@@ -135,7 +135,10 @@ class Utilities(commands.Cog):
                 if ctx.author.bot:
                     return
                 else:
-                    await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
+                    i = 0
+                    if i == 0:
+                        await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
+                        i += 1
                     await bot.process_commands(ctx)
 
     @commands.command()
