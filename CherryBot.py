@@ -107,7 +107,6 @@ class Utilities(commands.Cog):
                             await bug_channel.send(embed=embed)
                             await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
                                                    "Możesz to zrobić na serwerze lub na DM ze mną")
-
                 elif ctx.content in commands_db:
                     await bot.process_commands(ctx)
         @bot.event
