@@ -112,10 +112,7 @@ class Utilities(commands.Cog):
                     await bot.process_commands(ctx)
         @bot.event
         async def on_message(ctx):
-            if ctx.author != ctx.channel:
-                await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
-                if ctx.author.bot:
-                    print("To ja")
+            if ctx.author == ctx.channel:
                 if ctx.content.startswith("1"):
                     await ctx.channel.send(CONTENT)
                     typ = CATEGORY_1
@@ -134,6 +131,10 @@ class Utilities(commands.Cog):
                     await answer(typ)
                 elif ctx.content in commands_db:
                     await bot.process_commands(ctx)
+            else:
+                await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
+                if ctx.author.bot:
+                    print("To ja")
 
     @commands.command()
     @has_permissions(administrator=True)
