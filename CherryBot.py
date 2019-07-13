@@ -13,9 +13,8 @@ from random import randint
 # Moduły importowane z katalogu cherrydata
 from cherrydata.modules.help import pomocy
 from cherrydata.modules.rsp import rsp
-from cherrydata.modules.info import info
+from cherrydata.modules.user import user
 from cherrydata.modules.coin import coin
-from cherrydata.modules.guild_info import guild_info
 
 """
 Zostanie to przerzucone do API
@@ -27,7 +26,7 @@ addons = [f for f in listdir(addons_path) if isfile(join(addons_path, f))]
 # Listy do przechowywania danych
 channels = []
 config_db = []
-commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!info", "!reload", "!recources", "!config",
+commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!recources", "!config",
                "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear")
 
 # Wczytywanie konfiguracji
@@ -53,7 +52,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-1"
+wersja = "0.12-2"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -66,9 +65,9 @@ class Utilities(commands.Cog):
 
     @commands.command()
     @has_permissions(manage_messages=True)
-    async def info(self, ctx, user_ext_info: discord.Member):
+    async def user(self, ctx, user_ext_info: discord.Member):
         "Komenda do uzyskiwania informacji o użytkowniku oznaczając go (@nick, nick lub id)"
-        await info(self, ctx, user_ext_info)
+        await user(self, ctx, user_ext_info)
 
     @commands.command(aliases=["zgłoszenie"])
     async def report(self, message):
@@ -181,9 +180,25 @@ class Utilities(commands.Cog):
         await ctx.send("RAM: {} MB".format(round(process.memory_info().rss / (1024*1024))))
 
     @commands.command()
-    async def guild_info(self, ctx, guild: discord.Guild):
+    async def guild(self, ctx):
         """Komenda do uzyskania informacji o serwerze"""
-        await guild_info(self, ctx, guild)
+        server = bot.get_guild(591549514247176205)
+        roles = [role for role in server.roles]
+        embed = discord.Embed(
+            colour=discord.Colour.dark_red()
+        )
+
+        embed.set_author(name="Informacje o serwerze")
+        embed.set_thumbnail(url=server.icon_url)
+        embed.add_field(name="Nazwa serwera:", value=server.name, inline=False)
+        embed.add_field(name="ID serwera:", value=server.id, inline=False)
+        embed.add_field(name="Dane właściciela:", value="Nick: {}, ID: {}".format(server.owner, server.owner_id), inline=False)
+        embed.add_field(name="Role ({}):".format(len(roles)), value="".join([role.mention for role in roles]), inline=False)
+        embed.add_field(name="Region serwera:", value=server.region, inline=False)
+        embed.add_field(name="Serwer założony:", value=server.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=False)
+        embed.add_field(name="Liczba użytkowników:", value=str(len(server.members)), inline=False)
+        embed.set_footer(text="Prośba o dane od {}".format(ctx.author), icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=embed)
 
 class Entertainment(commands.Cog):
     def __init__(self, bot):

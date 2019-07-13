@@ -1,7 +1,7 @@
-# Zgodne z CherryBot 0.12-1
+# Zgodne z CherryBot 0.12-2
 import discord
 
-async def info(self, ctx, user_ext_info: discord.Member):
+async def user(self, ctx, user_ext_info: discord.Member):
     roles = [role for role in user_ext_info.roles]
 
     embed = discord.Embed(
