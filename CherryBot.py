@@ -52,7 +52,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-8"
+wersja = "0.12-9"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -103,15 +103,19 @@ class Utilities(commands.Cog):
                             message_value_clear = message_value[and_position+1:]
                             embed.set_author(name="Zgłoszenie typu {}".format(typ))
                             embed.add_field(name="Treść:", value=message_value_clear, inline=False)
-                            embed.add_field(name="Zgłosił:", value="{}\nid: {}".format(ctx.author, ctx.author.id), inline=False)
+                            embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
                             await bug_channel.send(embed=embed)
                             await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
-                                               "Możesz to zrobić na serwerze lub na DM ze mną")
+                                                   "Możesz to zrobić na serwerze lub na DM ze mną")
 
                 elif ctx.content in commands_db:
                     await bot.process_commands(ctx)
         @bot.event
         async def on_message(ctx):
+            if ctx.author != ctx.channel:
+                await ctx.channel.send("Proces zgłaszania został przerwany z powodu wyjścia poza DM")
+                if ctx.author.bot:
+                    print("To ja")
             if ctx.content.startswith("1"):
                 await ctx.channel.send(CONTENT)
                 typ = CATEGORY_1
