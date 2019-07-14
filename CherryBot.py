@@ -54,7 +54,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-15"
+wersja = "0.12-16"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -113,15 +113,19 @@ class Utilities(commands.Cog):
 
         def type_1():
             types_report_db[ctx.author]=CATEGORY_1
+            answer()
 
         def type_2():
             types_report_db[ctx.author]=CATEGORY_2
+            answer()
 
         def type_3():
             types_report_db[ctx.author]=CATEGORY_3
+            answer()
 
         def type_4():
             types_report_db[ctx.author]=CATEGORY_4
+            answer()
 
         thread_1 = threading.Thread(target=type_1())
         thread_2 = threading.Thread(target=type_2())
