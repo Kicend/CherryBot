@@ -1,5 +1,6 @@
 import asyncio
 import threading
+import warnings
 import discord
 import psutil
 import os
@@ -74,6 +75,7 @@ class Utilities(commands.Cog):
     @commands.command(aliases=["zgłoszenie"])
     async def report(self, ctx):
         "Komenda do zgłaszania przeznaczona dla użytkowników"
+        warnings.simplefilter("ignore", RuntimeWarning)
         ctx.channel = ctx.message.author
 
         await ctx.channel.send("Jaki typ zgłoszenia chcesz wysłać?\n"
