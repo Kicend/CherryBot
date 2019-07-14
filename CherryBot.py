@@ -1,4 +1,5 @@
 import asyncio
+import threading
 import discord
 import psutil
 import os
@@ -53,7 +54,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-14"
+wersja = "0.12-15"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -110,23 +111,40 @@ class Utilities(commands.Cog):
                 elif ctx.content in commands_db:
                     await bot.process_commands(ctx)
 
+        def type_1():
+            types_report_db[ctx.author]=CATEGORY_1
+
+        def type_2():
+            types_report_db[ctx.author]=CATEGORY_2
+
+        def type_3():
+            types_report_db[ctx.author]=CATEGORY_3
+
+        def type_4():
+            types_report_db[ctx.author]=CATEGORY_4
+
+        thread_1 = threading.Thread(target=type_1())
+        thread_2 = threading.Thread(target=type_2())
+        thread_3 = threading.Thread(target=type_3())
+        thread_4 = threading.Thread(target=type_4())
+
         @bot.event
         async def on_message(ctx):
             if ctx.content.startswith("1"):
                 await ctx.channel.send(CONTENT)
-                types_report_db[ctx.author]=CATEGORY_1
+                thread_1.start()
                 await answer()
             elif ctx.content.startswith("2"):
                 await ctx.channel.send(CONTENT)
-                types_report_db[ctx.author]=CATEGORY_2
+                thread_2.start()
                 await answer()
             elif ctx.content.startswith("3"):
                 await ctx.channel.send(CONTENT)
-                types_report_db[ctx.author]=CATEGORY_3
+                thread_3.start()
                 await answer()
             elif ctx.content.startswith("4"):
                 await ctx.channel.send(CONTENT)
-                types_report_db[ctx.author]=CATEGORY_4
+                thread_4.start()
                 await answer()
             elif ctx.content in commands_db:
                 await bot.process_commands(ctx)
