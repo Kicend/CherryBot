@@ -266,9 +266,9 @@ class Entertainment(commands.Cog):
         numbers = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
 
         await ctx.send("Odgadnij liczbę od 1 do 10. Masz tylko 5 sekund.")
-        cho = randint(1, 10)
+        cho = str(randint(1, 10))
 
-        @bot.check_once()
+        @bot.event
         async def on_message(message):
             if message.author.bot == True:
                 print("To ja")
