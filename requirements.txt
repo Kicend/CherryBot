@@ -5,3 +5,4 @@ psutil
 PyNaCl
 python-dotenv
 cffi
+threading
