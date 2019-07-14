@@ -54,7 +54,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-16"
+wersja = "0.12-17"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
