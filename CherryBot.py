@@ -58,7 +58,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-18"
+wersja = "0.12-19"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -113,7 +113,7 @@ class Utilities(commands.Cog):
                             await bug_channel.send(embed=embed)
                             await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
                                                    "Możesz to zrobić na serwerze lub na DM ze mną")
-                elif ctx.content in commands_db:
+                elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
         async def answer_2():
@@ -140,7 +140,7 @@ class Utilities(commands.Cog):
                             await bug_channel.send(embed=embed)
                             await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
                                                    "Możesz to zrobić na serwerze lub na DM ze mną")
-                elif ctx.content in commands_db:
+                elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
         async def answer_3():
@@ -167,7 +167,7 @@ class Utilities(commands.Cog):
                             await bug_channel.send(embed=embed)
                             await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
                                                    "Możesz to zrobić na serwerze lub na DM ze mną")
-                elif ctx.content in commands_db:
+                elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
         async def answer_4():
@@ -194,7 +194,7 @@ class Utilities(commands.Cog):
                             await bug_channel.send(embed=embed)
                             await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
                                                    "Możesz to zrobić na serwerze lub na DM ze mną")
-                elif ctx.content in commands_db:
+                elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
         def type_1():
@@ -236,7 +236,7 @@ class Utilities(commands.Cog):
                 await ctx.channel.send(CONTENT)
                 thread_4.start()
                 await answer_4()
-            elif ctx.content in commands_db:
+            elif ctx.content.startswith("!"):
                 await bot.process_commands(ctx)
 
     @commands.command()
