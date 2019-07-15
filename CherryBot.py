@@ -28,7 +28,7 @@ addons = [f for f in listdir(addons_path) if isfile(join(addons_path, f))]
 # Listy do przechowywania danych
 channels = []
 config_db = []
-commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!recources", "!config",
+commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!resources", "!config",
                "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
 type_1_report_db = {}
 type_2_report_db = {}
@@ -58,7 +58,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-17"
+wersja = "0.12-18"
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
