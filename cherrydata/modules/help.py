@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.13-1
+# Zgodne z CherryBot 0.13-2
 import discord
 
 async def pomocy(self, ctx, los, wersja):
@@ -12,6 +12,7 @@ async def pomocy(self, ctx, los, wersja):
         embed.add_field(name="!help", value="Wywołuje menu pomocy", inline=False)
         embed.add_field(name="!report", value="Narzędzie do zgłaszania", inline=False)
         embed.add_field(name="!guild", value="Informacje o serwerze", inline=False)
+        embed.add_field(name="!info", value="Pokazuje informacje o bocie", inline=False)
         embed.add_field(name="!kostka <liczba ścianek>", value="Kostka do gry", inline=False)
         embed.add_field(name="!pkn <papier, kamień lub nożyce>", value="Papier, kamień, nożyce", inline=False)
         embed.add_field(name="!moneta", value="Rzuć monetą", inline=False)
@@ -24,6 +25,5 @@ async def pomocy(self, ctx, los, wersja):
         embed.add_field(name="!reload", value="Odświeżenie konfiguracji bota (dla administracji)", inline=False)
         embed.add_field(name="!config", value="Informacje o konfiguracji bota (dla moderacji)", inline=False)
         embed.add_field(name="!clear <ilość> <osoba (opcjonalnie)>", value="Usuwanie historii czatu (dla moderacji)", inline=False)
-        embed.add_field(name="!resources", value="Pokazuje zużycie zasobów przez bota (dla moderacji)", inline=False)
 
         await ctx.send(embed=embed)

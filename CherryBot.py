@@ -59,7 +59,7 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.13-1"
+wersja = "0.13-2"
 boot_date = time.strftime("%H:%M %d.%m.%Y")
 
 class Utilities(commands.Cog):
@@ -309,6 +309,7 @@ class Utilities(commands.Cog):
 
     @commands.command()
     async def info(self, ctx):
+        """Komenda do sprawdzenia informacji o bocie"""
         process = psutil.Process(os.getpid())
         embed = discord.Embed(
             colour=discord.Colour.dark_red()
