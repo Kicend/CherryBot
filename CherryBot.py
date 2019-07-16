@@ -60,7 +60,7 @@ CATEGORY_4 = "Inne"
 # Parametry bota
 TOKEN = config_db[0]
 wersja = "0.13-2"
-boot_date = time.strftime("%H:%M %d.%m.%Y")
+boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
