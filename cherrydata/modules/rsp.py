@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.12-19
+# Zgodne z CherryBot 0.13-1
 import random
 
 async def rsp(self, ctx, hand):

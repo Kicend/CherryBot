@@ -4,6 +4,7 @@ import warnings
 import discord
 import psutil
 import os
+import time
 from os import listdir
 from os.path import isfile, join
 from discord.ext import commands
@@ -58,7 +59,8 @@ CATEGORY_4 = "Inne"
 
 # Parametry bota
 TOKEN = config_db[0]
-wersja = "0.12-19"
+wersja = "0.13-1"
+boot_date = time.strftime("%H:%M %d.%m.%Y")
 
 class Utilities(commands.Cog):
     def __init__(self, bot):
@@ -285,13 +287,6 @@ class Utilities(commands.Cog):
             await ctx.send("Usunięto {} wiadomości".format(len(deleted)))
 
     @commands.command()
-    @has_permissions(manage_messages=True)
-    async def resources(self, ctx):
-        "Komenda do sprawdzenia zużycia zasobów przez bota"
-        process = psutil.Process(os.getpid())
-        await ctx.send("RAM: {} MB".format(round(process.memory_info().rss / (1024*1024))))
-
-    @commands.command()
     async def guild(self, ctx):
         """Komenda do uzyskania informacji o serwerze"""
         server = bot.get_guild(591549514247176205)
@@ -310,6 +305,23 @@ class Utilities(commands.Cog):
         embed.add_field(name="Serwer założony:", value=server.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"), inline=False)
         embed.add_field(name="Liczba użytkowników:", value=str(len(server.members)), inline=False)
         embed.set_footer(text="Prośba o dane od {}".format(ctx.author), icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def info(self, ctx):
+        process = psutil.Process(os.getpid())
+        embed = discord.Embed(
+            colour=discord.Colour.dark_red()
+        )
+
+        embed.set_author(name="Informacje o bocie")
+        embed.add_field(name="Godność:", value="Nick: CherryBot#1453, ID: 596419695389966346", inline=False)
+        embed.add_field(name="Uruchomiony:", value=boot_date, inline=False)
+        embed.add_field(name="Pomiar pulsu:", value="{} ms".format(round(bot.latency * 1000)), inline=False)
+        embed.add_field(name="RAM:", value="{} MB".format(round(process.memory_info().rss / (1024 * 1024))), inline=False)
+        embed.add_field(name="Wersja:", value=wersja, inline=False)
+        embed.add_field(name="Biblioteka", value="discord.py 1.2.3", inline=False)
+        embed.add_field(name="Autor:", value="Kicend#2690", inline=False)
         await ctx.send(embed=embed)
 
 class Entertainment(commands.Cog):
