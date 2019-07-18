@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.13-2
+# Zgodne z CherryBot 0.13-3
 import discord
 
 async def tic_tac_toe(self, ctx, member: discord.Member):

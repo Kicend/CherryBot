@@ -19,6 +19,9 @@ from cherrydata.modules.rsp import rsp
 from cherrydata.modules.user import user
 from cherrydata.modules.coin import coin
 
+# Import konfiguracji bota
+from cherrydata.config.config import Config
+
 """
 Zostanie to przerzucone do API
 # Dodatki importowane z katalogu cherrydata
@@ -28,25 +31,12 @@ addons = [f for f in listdir(addons_path) if isfile(join(addons_path, f))]
 
 # Listy do przechowywania danych
 channels = []
-config_db = []
 commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!resources", "!config",
                "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
 type_1_report_db = {}
 type_2_report_db = {}
 type_3_report_db = {}
 type_4_report_db = {}
-
-# Wczytywanie konfiguracji
-config = open("cherrydata/config/config.txt")
-for wpis in config:
-    equals = wpis.index("=")
-    if wpis.count("\n") > 0:
-        n = wpis.index("\n")
-        wpis_value = wpis[equals+2:n]
-    else:
-        wpis_value = wpis[equals+2:]
-    config_db.append(wpis_value)
-config.close()
 
 # Komunikaty
 CONTENT = "Podaj treść zaczynając znakiem &"
@@ -58,8 +48,8 @@ CATEGORY_3 = "Problem z botem"
 CATEGORY_4 = "Inne"
 
 # Parametry bota
-TOKEN = config_db[0]
-wersja = "0.13-2"
+TOKEN = Config.TOKEN
+wersja = "0.13-3"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
@@ -103,7 +93,7 @@ class Utilities(commands.Cog):
                             print("To była komenda")
                             await bot.process_commands(message_value)
                         else:
-                            bug_channel = bot.get_channel(int(config_db[1]))
+                            bug_channel = bot.get_channel(Config.bug_channel)
                             embed = discord.Embed(
                                 colour=discord.Colour.dark_red()
                             )
@@ -130,7 +120,7 @@ class Utilities(commands.Cog):
                             print("To była komenda")
                             await bot.process_commands(message_value)
                         else:
-                            bug_channel = bot.get_channel(int(config_db[1]))
+                            bug_channel = bot.get_channel(Config.bug_channel)
                             embed = discord.Embed(
                                 colour=discord.Colour.dark_red()
                             )
@@ -157,7 +147,7 @@ class Utilities(commands.Cog):
                             print("To była komenda")
                             await bot.process_commands(message_value)
                         else:
-                            bug_channel = bot.get_channel(int(config_db[1]))
+                            bug_channel = bot.get_channel(Config.bug_channel)
                             embed = discord.Embed(
                                 colour=discord.Colour.dark_red()
                             )
@@ -184,7 +174,7 @@ class Utilities(commands.Cog):
                             print("To była komenda")
                             await bot.process_commands(message_value)
                         else:
-                            bug_channel = bot.get_channel(int(config_db[1]))
+                            bug_channel = bot.get_channel(Config.bug_channel)
                             embed = discord.Embed(
                                 colour=discord.Colour.dark_red()
                             )
@@ -241,25 +231,13 @@ class Utilities(commands.Cog):
             elif ctx.content.startswith("!"):
                 await bot.process_commands(ctx)
 
+    """
     @commands.command()
     @has_permissions(administrator=True)
     async def reload(self, ctx):
         "Komenda do odświeżenia pliku konfiguracji"
-        while config_db != []:
-            del config_db[0]
-
-        config = open("cherrydata/config/config.txt")
-        for wpis in config:
-            equals = wpis.index("=")
-            if wpis.count("\n") > 0:
-                n = wpis.index("\n")
-                wpis_value = wpis[equals + 2:n]
-            else:
-                wpis_value = wpis[equals + 2:]
-            config_db.append(wpis_value)
-        config.close()
-
         await ctx.send("Konfiguracja bota została odświeżona")
+    """
 
     @commands.command()
     @has_permissions(manage_messages=True)
@@ -270,9 +248,9 @@ class Utilities(commands.Cog):
         )
 
         embed.set_author(name="Informacje o konfiguracji bota")
-        embed.add_field(name="Kanał do wysyłania zgłoszeń przez bota", value=config_db[1], inline=False)
-        embed.add_field(name="Kanał do pisania z botem", value=config_db[2], inline=False)
-        embed.add_field(name="Prefix", value=config_db[3], inline=False)
+        embed.add_field(name="Kanał do wysyłania zgłoszeń przez bota", value=Config.bug_channel, inline=False)
+        embed.add_field(name="Kanał do pisania z botem", value=Config.bot_channel, inline=False)
+        embed.add_field(name="Prefix", value=Config.commands_prefix, inline=False)
 
         await ctx.send(embed=embed)
 
@@ -377,12 +355,12 @@ class Entertainment(commands.Cog):
                     await ctx.send("Nie zgadłeś. Niestety")
     """
 
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(config_db[3]),
+bot = commands.Bot(command_prefix=commands.when_mentioned_or(Config.commands_prefix),
                    description='CherryBot wersja {}'.format(wersja))
 
 bot.remove_command("help")
 
-bot_channel = bot.get_channel(int(config_db[2]))
+bot_channel = bot.get_channel(Config.bot_channel)
 
 # Funkcja zwracająca opóźnienie bota
 async def ping():
