@@ -49,7 +49,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.13-4"
+wersja = "0.13-5"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
@@ -399,6 +399,11 @@ async def on_command_error(ctx, error):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Nie podałeś wymaganego argumentu")
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.BotMissingPermissions):
+        await ctx.send("Nie mam uprawnień do wykonania tej komendy")
 
 bot.add_cog(Utilities(bot))
 bot.add_cog(Entertainment(bot))
