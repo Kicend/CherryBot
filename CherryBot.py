@@ -47,7 +47,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.14-1"
+wersja = "0.14-2"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
@@ -319,6 +319,7 @@ class Entertainment(commands.Cog):
 
     @commands.command(aliases=["zgadywanka"])
     async def guess(self, ctx):
+        """Odgadnij liczbę"""
         numbers = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
 
         await ctx.send("Odgadnij liczbę od 1 do 10. Masz tylko 5 sekund.")
