@@ -42,14 +42,14 @@ type_4_report_db = {}
 CONTENT = "Podaj treść zaczynając znakiem &"
 
 # Typy zgłoszeń
-CATEGORY_1 = "Błąd gry"
-CATEGORY_2 = "Propozycja zmiany"
-CATEGORY_3 = "Problem z botem"
-CATEGORY_4 = "Inne"
+CATEGORY_1 = Config.CATEGORY_1
+CATEGORY_2 = Config.CATEGORY_2
+CATEGORY_3 = Config.CATEGORY_3
+CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.13-3"
+wersja = "0.13-4"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
