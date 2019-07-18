@@ -47,7 +47,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.14-2"
+wersja = "0.14-3"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
@@ -294,7 +294,7 @@ class Entertainment(commands.Cog):
         "Komenda na kostkę do gry"
         b = int(boki)
         if b == 3:
-            await ctx.send("Widziałeś kiedyś kostkę 3 ścienną?")
+            await ctx.send("Widziałeś kiedyś kostkę trzyścienną?")
 
         elif b == 2:
             await ctx.send("Rzuć se monetą, a nie głowę zawracasz")
