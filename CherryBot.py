@@ -5,13 +5,13 @@ import discord
 import psutil
 import os
 import time
+import random
 from os import listdir
 from os.path import isfile, join
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 from itertools import cycle
 from random import randrange
-from random import randint
 
 # Moduły importowane z katalogu cherrydata
 from cherrydata.modules.help import pomocy
@@ -49,7 +49,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.13-5"
+wersja = "0.13-7"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
@@ -335,25 +335,24 @@ class Entertainment(commands.Cog):
         "Rzuć monetą"
         await coin(self, ctx)
 
-    """
     @commands.command(aliases=["zgadywanka"])
     async def guess(self, ctx):
         numbers = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10")
 
         await ctx.send("Odgadnij liczbę od 1 do 10. Masz tylko 5 sekund.")
-        cho = str(randint(1, 10))
+        cho = random.choice(numbers)
 
-        @bot.event
-        async def on_message(message):
-            if message.author.bot == True:
-                print("To ja")
-
-            if message.content.startswith(numbers):
-                if cho == message:
+        try:
+            msg = await bot.wait_for("message", timeout=5)
+            if ctx.author.bot:
+                return None
+            elif msg.content.startswith(numbers):
+                if msg.content == cho:
                     await ctx.send("Zgadłeś")
                 else:
                     await ctx.send("Nie zgadłeś. Niestety")
-    """
+        except asyncio.TimeoutError:
+            await ctx.send("Czas minął. To była liczba {}".format(cho))
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(Config.commands_prefix),
                    description='CherryBot wersja {}'.format(wersja))
