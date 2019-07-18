@@ -31,8 +31,6 @@ addons = [f for f in listdir(addons_path) if isfile(join(addons_path, f))]
 
 # Listy do przechowywania danych
 channels = []
-commands_db = ("!help", "!pomocy", "!report", "!zgłoszenie", "!user", "!reload", "!resources", "!config",
-               "!moneta", "!coin", "!pkn", "!rsp", "!kostka", "!dice", "!clear", "!guild")
 type_1_report_db = {}
 type_2_report_db = {}
 type_3_report_db = {}
@@ -49,7 +47,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.13-7"
+wersja = "0.14"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
@@ -86,25 +84,21 @@ class Utilities(commands.Cog):
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
                     if ctx.author.bot:
-                        return
+                        return None
                     else:
                         message_value = ctx.content
-                        if message_value in commands_db:
-                            print("To była komenda")
-                            await bot.process_commands(message_value)
-                        else:
-                            bug_channel = bot.get_channel(Config.bug_channel)
-                            embed = discord.Embed(
-                                colour=discord.Colour.dark_red()
-                            )
-                            and_position = message_value.index("&")
-                            message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(type_1_report_db.pop(ctx.author)))
-                            embed.add_field(name="Treść:", value=message_value_clear, inline=False)
-                            embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
-                            await bug_channel.send(embed=embed)
-                            await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
-                                                   "Możesz to zrobić na serwerze lub na DM ze mną")
+                        bug_channel = bot.get_channel(Config.bug_channel)
+                        embed = discord.Embed(
+                            colour=discord.Colour.dark_red()
+                        )
+                        and_position = message_value.index("&")
+                        message_value_clear = message_value[and_position+1:]
+                        embed.set_author(name="Zgłoszenie typu {}".format(type_1_report_db.pop(ctx.author)))
+                        embed.add_field(name="Treść:", value=message_value_clear, inline=False)
+                        embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
+                        await bug_channel.send(embed=embed)
+                        await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
+                                               "Możesz to zrobić na serwerze lub na DM ze mną")
                 elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
@@ -113,25 +107,21 @@ class Utilities(commands.Cog):
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
                     if ctx.author.bot:
-                        return
+                        return None
                     else:
                         message_value = ctx.content
-                        if message_value in commands_db:
-                            print("To była komenda")
-                            await bot.process_commands(message_value)
-                        else:
-                            bug_channel = bot.get_channel(Config.bug_channel)
-                            embed = discord.Embed(
-                                colour=discord.Colour.dark_red()
-                            )
-                            and_position = message_value.index("&")
-                            message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(type_2_report_db.pop(ctx.author)))
-                            embed.add_field(name="Treść:", value=message_value_clear, inline=False)
-                            embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
-                            await bug_channel.send(embed=embed)
-                            await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
-                                                   "Możesz to zrobić na serwerze lub na DM ze mną")
+                        bug_channel = bot.get_channel(Config.bug_channel)
+                        embed = discord.Embed(
+                            colour=discord.Colour.dark_red()
+                        )
+                        and_position = message_value.index("&")
+                        message_value_clear = message_value[and_position+1:]
+                        embed.set_author(name="Zgłoszenie typu {}".format(type_2_report_db.pop(ctx.author)))
+                        embed.add_field(name="Treść:", value=message_value_clear, inline=False)
+                        embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
+                        await bug_channel.send(embed=embed)
+                        await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
+                                               "Możesz to zrobić na serwerze lub na DM ze mną")
                 elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
@@ -140,25 +130,21 @@ class Utilities(commands.Cog):
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
                     if ctx.author.bot:
-                        return
+                        return None
                     else:
                         message_value = ctx.content
-                        if message_value in commands_db:
-                            print("To była komenda")
-                            await bot.process_commands(message_value)
-                        else:
-                            bug_channel = bot.get_channel(Config.bug_channel)
-                            embed = discord.Embed(
-                                colour=discord.Colour.dark_red()
-                            )
-                            and_position = message_value.index("&")
-                            message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(type_3_report_db.pop(ctx.author)))
-                            embed.add_field(name="Treść:", value=message_value_clear, inline=False)
-                            embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
-                            await bug_channel.send(embed=embed)
-                            await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
-                                                   "Możesz to zrobić na serwerze lub na DM ze mną")
+                        bug_channel = bot.get_channel(Config.bug_channel)
+                        embed = discord.Embed(
+                            colour=discord.Colour.dark_red()
+                        )
+                        and_position = message_value.index("&")
+                        message_value_clear = message_value[and_position+1:]
+                        embed.set_author(name="Zgłoszenie typu {}".format(type_3_report_db.pop(ctx.author)))
+                        embed.add_field(name="Treść:", value=message_value_clear, inline=False)
+                        embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
+                        await bug_channel.send(embed=embed)
+                        await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
+                                               "Możesz to zrobić na serwerze lub na DM ze mną")
                 elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
@@ -167,25 +153,21 @@ class Utilities(commands.Cog):
             async def on_message(ctx):
                 if ctx.content.startswith("&"):
                     if ctx.author.bot:
-                        return
+                        return None
                     else:
                         message_value = ctx.content
-                        if message_value in commands_db:
-                            print("To była komenda")
-                            await bot.process_commands(message_value)
-                        else:
-                            bug_channel = bot.get_channel(Config.bug_channel)
-                            embed = discord.Embed(
-                                colour=discord.Colour.dark_red()
-                            )
-                            and_position = message_value.index("&")
-                            message_value_clear = message_value[and_position+1:]
-                            embed.set_author(name="Zgłoszenie typu {}".format(type_4_report_db.pop(ctx.author)))
-                            embed.add_field(name="Treść:", value=message_value_clear, inline=False)
-                            embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
-                            await bug_channel.send(embed=embed)
-                            await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
-                                                   "Możesz to zrobić na serwerze lub na DM ze mną")
+                        bug_channel = bot.get_channel(Config.bug_channel)
+                        embed = discord.Embed(
+                            colour=discord.Colour.dark_red()
+                        )
+                        and_position = message_value.index("&")
+                        message_value_clear = message_value[and_position+1:]
+                        embed.set_author(name="Zgłoszenie typu {}".format(type_4_report_db.pop(ctx.author)))
+                        embed.add_field(name="Treść:", value=message_value_clear, inline=False)
+                        embed.add_field(name="Zgłosił:", value="{}\nID: {}".format(ctx.author, ctx.author.id), inline=False)
+                        await bug_channel.send(embed=embed)
+                        await ctx.channel.send("Zgłoszenie zostało przesłane. Jeżeli chcesz wysłać kolejne wpisz !report.\n"
+                                               "Możesz to zrobić na serwerze lub na DM ze mną")
                 elif ctx.content.startswith("!"):
                     await bot.process_commands(ctx)
 
