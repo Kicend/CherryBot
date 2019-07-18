@@ -4,9 +4,8 @@ import warnings
 import discord
 import psutil
 import time
+import os
 from random import *
-from os import *
-from os.path import isfile, join
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 from itertools import cycle
@@ -45,7 +44,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.14-4"
+wersja = "0.14-5"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
