@@ -301,7 +301,6 @@ class Entertainment(commands.Cog):
 
         else:
             a = str(randrange(1, b))
-
             await ctx.send("Kostka wskazuje {}".format(a))
 
     @commands.command(aliases=["pkn"])
