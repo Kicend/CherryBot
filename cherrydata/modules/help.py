@@ -1,4 +1,4 @@
-# Zgodne z CherryBot 0.14
+# Zgodne z CherryBot 0.14-1
 import discord
 
 async def pomocy(self, ctx, los, wersja):
@@ -16,6 +16,7 @@ async def pomocy(self, ctx, los, wersja):
         embed.add_field(name="!kostka <liczba ścianek>", value="Kostka do gry", inline=False)
         embed.add_field(name="!pkn <papier, kamień lub nożyce>", value="Papier, kamień, nożyce", inline=False)
         embed.add_field(name="!moneta", value="Rzuć monetą", inline=False)
+        embed.add_field(name="!zgadywanka", value="Odgadnij liczbę", inline=False)
 
         await ctx.send(embed=embed)
 
