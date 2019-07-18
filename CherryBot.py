@@ -5,7 +5,8 @@ import discord
 import psutil
 import time
 import os
-from random import *
+import random
+from random import randrange
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 from itertools import cycle
@@ -44,7 +45,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.14-5"
+wersja = "0.14-6"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
