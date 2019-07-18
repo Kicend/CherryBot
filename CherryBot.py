@@ -3,15 +3,13 @@ import threading
 import warnings
 import discord
 import psutil
-import os
 import time
-import random
-from os import listdir
+from random import *
+from os import *
 from os.path import isfile, join
 from discord.ext import commands
 from discord.ext.commands import has_permissions
 from itertools import cycle
-from random import randrange
 
 # Moduły importowane z katalogu cherrydata
 from cherrydata.modules.help import pomocy
@@ -47,7 +45,7 @@ CATEGORY_4 = Config.CATEGORY_4
 
 # Parametry bota
 TOKEN = Config.TOKEN
-wersja = "0.14-3"
+wersja = "0.14-4"
 boot_date = time.strftime("%H:%M %d.%m.%Y UTC")
 
 class Utilities(commands.Cog):
